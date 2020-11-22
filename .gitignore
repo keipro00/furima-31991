@@ -29,3 +29,6 @@
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
+
+# Gitで不要なファイルを除外するためにこのファイルに記述する
+.Ds_Store
