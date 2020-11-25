@@ -1,9 +1,15 @@
 class ItemsController < ApplicationController
   
-  # indexファイルに遷移させる記述
-  # def index
-  # end
-  # def new
-  # end
+  def new
+       if user_signed_in?
+        @item = Item.new
+       else
+        redirect_to new_user_session_path
+  end
+end
+  
+  def create
+  end
+
 
 end
