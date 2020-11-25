@@ -7,32 +7,41 @@ require 'rails_helper'
 
 context '新規登録が上手くいくとき' do
 
-  it "passwordが6文字以上であれば登録できること" do
+  it "パスワードは６文字以上である、パスワードは半角英数字混合である" do
     @user.password = "hoge1234"
     @user.password_confirmation = "hoge1234"
     expect(@user).to be_valid 
   end
 
-  it "emailに＠があると登録できる" do
+  it "メールアドレスは＠を含む必要がある" do
     @user.email = "test@example" 
-
     expect(@user).to be_valid
   end
 
-    it"名字は全角で入力する" do
+    it "ユーザー本名は、全角（漢字・ひらがな・カタカナ）で入力させる" do
      @user.last_name = "手すト" 
      expect(@user).to be_valid
   end
 
-    it"名前は全角で入力する" do
+    it "ユーザー本名は、全角（漢字・ひらがな・カタカナ）で入力させる" do
      @user.first_name = "子おド" 
      expect(@user).to be_valid
   end
+    
+    it "ユーザー本名のフリガナは、全角（カタカナ）で入力させる" do
+     @user.last_name_kana = "テスト" 
+     expect(@user).to be_valid
+  end
+
+    it "ユーザー本名のフリガナは、全角（カタカナ）で入力させる" do
+    @user.first_name_kana = "コード" 
+    expect(@user).to be_valid
+  end 
 end
   
   context '新規登録が上手くいかないとき' do
   
-    it "passwordとpassword_confirmationが不一致では登録できないこと" do
+    it "パスワードは確認用を含めて２回入力する" do
      @user.password = "hoge1234"
      @user.password_confirmation = "hoge12345"
      @user.valid?
@@ -87,6 +96,7 @@ end
       @user.valid?
       expect(@user.errors.full_messages).to include("Birth day can't be blank")
      end 
+
    end
   end
 end
