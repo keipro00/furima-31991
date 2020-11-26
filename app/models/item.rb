@@ -4,6 +4,7 @@ class Item < ApplicationRecord
   belongs_to :user
   has_many :comments
   has_one :user_item
+  has_one_attached :image
   
   # Activehashによるアソシエーション
   belongs_to :category
@@ -15,25 +16,27 @@ class Item < ApplicationRecord
   #選択が「--」の時は保存できないようにする
   validates :category_id, numericality: { other_than: 1 } 
   validates :status_id, numericality: { other_than: 1 } 
-  validates :delivery_fee, numericality: { other_than: 1 } 
-  validates :prefecture, numericality: { other_than: 0 } 
-  validates :delivery_day, numericality: { other_than: 1 } 
+  validates :delivery_fee_id, numericality: { other_than: 1 } 
+  validates :prefecture_id, numericality: { other_than: 0 } 
+  validates :delivery_day_id, numericality: { other_than: 1 } 
 
  with_options presence: true do
  validates :name
  validates :comment
  validates :image
- validates :category_id
- validates :status_id
- validates :delivery_fee_id
- validates :prefecture_id
- validates :delivery_days_id
+#  validates :category_id
+#  validates :status_id
+#  validates :delivery_fee_id
+#  validates :prefecture_id
+#  validates :delivery_days_id
  end
  
- validates :price, presence: true
-
-#  価格の条件設定はのちほど
-#  with_options presence: true, format: { with: /\A[\d]+\z/, /\A[300. + 9999999]+\z/ , message: '販売価格は、半角数値のみ' } do
-#  end
+ 
+ with_options presence: true, format: { with: /\A[\d]+\z/ , message: '販売価格は、半角数値のみ' } do 
+  validates :price
+ end
+ with_options presence: true, format: { with: /\A[300. + 9999999]+\z/ , message: '販売価格は、300円〜9,999,999円まで' } do 
+  validates :price
+ end
 
 end
