@@ -24,6 +24,7 @@ class Item < ApplicationRecord
     validates :name
     validates :comment
     validates :image
+    validates :price
     #  validates :category_id
     #  validates :status_id
     #  validates :delivery_fee_id
@@ -31,10 +32,7 @@ class Item < ApplicationRecord
     #  validates :delivery_days_id
   end
 
-  with_options presence: true, format: { with: /\A\d+\z/, message: '販売価格は、半角数値のみ' } do
-    validates :price
-  end
-  with_options presence: true, format: { with: /\A[300. + 9999999]+\z/, message: '販売価格は、300円〜9,999,999円まで' } do
-    validates :price
-  end
+  validates :price, format: { with: /\A[0-9]+\z/, message: '販売価格は、半角数値のみ保存可能' } 
+  validates :price, inclusion: { in: 300..9999999, message: "販売価格は、300円〜9,999,999円の間である" }
 end
+
