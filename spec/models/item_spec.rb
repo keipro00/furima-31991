@@ -69,9 +69,9 @@ RSpec.describe Item, type: :model do
       end
 
       it '発送元の地域について--が入っていると登録できない' do
-        @item.prefecture_id = 0
+        @item.prefecture_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include "Prefecture must be other than 0"
+        expect(@item.errors.full_messages).to include "Prefecture must be other than 1"
       end
 
       it '発送日の日数についての情報が必須である' do
