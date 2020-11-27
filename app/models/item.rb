@@ -25,11 +25,6 @@ class Item < ApplicationRecord
     validates :comment
     validates :image
     validates :price
-    #  validates :category_id
-    #  validates :status_id
-    #  validates :delivery_fee_id
-    #  validates :prefecture_id
-    #  validates :delivery_days_id
   end
 
   validates :price, format: { with: /\A[0-9]+\z/, message: '販売価格は、半角数値のみ保存可能' } 
