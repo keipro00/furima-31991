@@ -7,7 +7,6 @@
       <%= "商品名" %>
     </h2>
     <div class='item-img-content'>
-      <%#= image_tag "item-sample.png" ,class:"item-box-img" %>
       <%= image_tag (@item.image), class:"item-box-img" %>
       <%# 商品が売れている場合は、sold outを表示しましょう %>
       <div class='sold-out'>
@@ -103,7 +102,7 @@
       後ろの商品 ＞
     </a>
   </div>
-  <a href="#" class='another-item'><%= "商品のカテゴリー名" %>をもっと見る</a>
+  <a href="#" class='another-item'><%= @item.category.name %>をもっと見る</a>
 </div>
 <% end %>
 <%= render "shared/footer" %>
