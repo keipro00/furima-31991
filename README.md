@@ -72,6 +72,6 @@ belongs_to :user_item
 | item    | references | foreign_key :true |
 
 <!-- Association -->
-belong_to :user
+belongs_to :user
 belongs_to :item
 has_one :delivery
