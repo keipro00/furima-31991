@@ -22,7 +22,7 @@ class UserItemsController < ApplicationController
   
   private 
   def user_item_params  
-     params.require(:item_form).permit(:postcode, :perfecture_id, :city, :block, :building, :phone).merge(user_id: current_user.id, item_id: params[:item_id])
+     params.require(:item_form).permit(:postcode, :prefecture_id, :city, :block, :building, :phone).merge(user_id: current_user.id, item_id: params[:item_id])
     end
 
     def move_to_index
