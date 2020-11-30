@@ -1,24 +1,19 @@
 class UserItemsController < ApplicationController
     # ログアウトユーザーはログイン画面へ
     before_action :authenticate_user!, only: [:index]
+    before_action :move_to_index, only:[:index, :create, :user_item_params]
   
     def index
-      #出品者はホーム画面へ遷移させる
-      #売れていればホーム画面へ
-      #出品者以外は、購入画面へ
-      @item = Item.find(params[:item_id])
-       if current_user.id == @item.user_id
-          redirect_to root_path
-       else 
-         @item = Item.new
-       end
+      redirect_to root_path if current_user.id == @item.user_id
+      @item_form = ItemForm.new
     end
-  
+    
+    # includes使ってみたり、したがうまくいかず
     def create
-      # binding.pryで確認するとパラムスにデータが入っていない模様
-      @user_item = user_item.new(user_item_params)
-      if @user_item.valid?
-        @user_item.save
+      @item_form = ItemForm.new(user_item_params)
+  
+      if @item_form.valid?
+         @item_form.save
         return redirect_to root_path
       else
         render :index
@@ -26,8 +21,15 @@ class UserItemsController < ApplicationController
     end
   
   private 
-   def user_item_params
-     params.require(:user_item).merge(user_id: current_user.id, item_id: params[:item_id])
-   end
-  end
-  
+  def user_item_params  
+     params.require(:item_form).permit(:postcode, :perfecture_id, :city, :block, :building, :phone).merge(user_id: current_user.id, item_id: params[:item_id])
+    end
+
+    def move_to_index
+      @item = Item.find(params[:item_id])
+    end
+
+
+end
+
+# .merge(token: params[:token])

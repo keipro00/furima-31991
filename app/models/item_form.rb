@@ -1,0 +1,19 @@
+class ItemForm
+  include ActiveModel::Model
+  attr_accessor :postcode, :perfecture_id, :city, :block, :building, :phone, :user_id, :item_id
+  
+  with_options presence: true do
+    validates :postcode, format: {with: /\A[0-9]{3}-[0-9]{4}\z/, message: "郵便番号はハイフンが必要"}
+    validates :perfecture_id, numericality: { other_than: 1, message: "can't be blank" }
+    validates :city
+    validates :block
+    validates :phone, format: {with: /[0-9]{,11}/ , message:"電話番号は11桁以下"}
+  end 
+  
+  def save 
+    user_item = UserItem.create(item_id: item_id, user_id: user_id)
+     Delivery.create(postcode: postcode, perfecture_id: perfecture_id, city: city, block: block, building: building, phone: phone, user_item_id: user_item.id)
+    #  UserItem.create(item_id: item_id, user_id: user_id)
+     
+  end
+end

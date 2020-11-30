@@ -59,7 +59,7 @@ belongs_to :item
 | block         | string     | null: false       |
 | building      | string     |                   |
 | phone         | string     | null: false       |
-| user_item     | references | foreign_key :true |
+| user_item     | references | foreign_key: true |
 
 <!-- Association -->
 belongs_to :user_item

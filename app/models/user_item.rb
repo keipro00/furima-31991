@@ -1,6 +1,5 @@
-class UserItem < ApplicationRecord
-  belongs_to :user
-  belongs_to :item
-  has_one :order
-  has_one :delivery
+class UserItem< ApplicationRecord
+ belongs_to :user
+ belongs_to :item
+ has_one :delivery
 end
