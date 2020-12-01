@@ -6,6 +6,7 @@ FactoryBot.define do
     block           { 47 }
     building        {""}
     phone           { "08012345678" }
+    token           {"tok_abcdefghijk00000000000000000"}
 
   # association :user
   # association :item
