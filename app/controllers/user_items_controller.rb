@@ -9,7 +9,6 @@ class UserItemsController < ApplicationController
     end
   
     def create
-      binding.pry
       @item_form = ItemForm.new(user_item_params)
       if @item_form.valid?
         pay_item 

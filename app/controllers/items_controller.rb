@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :edit]
-  before_action :set_item, only:[:show, :update, :destroy ]
+  before_action :set_item, only:[:show, :update, :destroy]
   before_action :move_to_index, only:[:edit]
 
   def index
@@ -21,9 +21,13 @@ class ItemsController < ApplicationController
   end
 
   def show
+  
   end
   
   def edit
+    if @item.user_item != nil
+       redirect_to root_path
+    end
   end
   
   def update
@@ -59,6 +63,5 @@ class ItemsController < ApplicationController
     elsif   user_signed_in? && current_user.id != @item.user_id
       redirect_to action: :index
     end
-    
   end
  end
