@@ -1,11 +1,16 @@
 class UserItemsController < ApplicationController
     # ログアウトユーザーはログイン画面へ
     before_action :authenticate_user!, only: [:index]
-    before_action :move_to_index, only:[:index, :create, :user_item_params]
+    before_action :take_item, only:[:index, :create]
   
     def index
-      redirect_to root_path if current_user.id == @item.user_id
-      @item_form = ItemForm.new
+      if @item.user_item != nil
+        redirect_to root_path 
+      elsif current_user.id == @item.user_id
+        redirect_to root_path
+      else
+        @item_form = ItemForm.new
+      end
     end
   
     def create
@@ -22,8 +27,6 @@ class UserItemsController < ApplicationController
   
   private 
   def pay_item
-    # Payjp.api_key = "sk_test_5d0815d0907b4e53ae2dfe23"  # 自身のPAY.JPテスト秘密鍵を記述しましょう
-    # 秘密鍵を代入した環境変数を呼び込む
     Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
     Payjp::Charge.create(
       amount: user_item_params[:price],  # 商品の値段
@@ -36,7 +39,7 @@ class UserItemsController < ApplicationController
      params.require(:item_form).permit(:postcode, :prefecture_id, :city, :block, :building, :phone).merge(user_id: current_user.id, item_id: params[:item_id], token: params[:token], price: @item.price)
     end
 
-  def move_to_index
+  def take_item
       @item = Item.find(params[:item_id])
   end
 end

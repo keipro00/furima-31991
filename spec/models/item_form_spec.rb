@@ -2,7 +2,6 @@ require 'rails_helper'
 RSpec.describe ItemForm, type: :model do
   
   before do
-    # binding.pry
     @item_form = FactoryBot.build(:item_form)
   end
 
