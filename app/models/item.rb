@@ -5,6 +5,7 @@ class Item < ApplicationRecord
   has_many :comments
   has_one :user_item
   has_one_attached :image
+  
 
   # Activehashによるアソシエーション
   belongs_to :category
