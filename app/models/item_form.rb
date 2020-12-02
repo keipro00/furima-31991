@@ -9,6 +9,8 @@ class ItemForm
     validates :block
     validates :phone, format: {with: /\A\d{,11}\z/ , message:"電話番号は11桁以下かつハイフン不要"}
     validates :token
+    validates :user_id
+    validates :item_id
   end 
   
   def save 
