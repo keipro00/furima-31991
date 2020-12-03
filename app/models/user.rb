@@ -18,10 +18,9 @@ class User < ApplicationRecord
     validates :first_name_kana
   end
 
-  with_options presence: true, format:{with: /\A[a-zA-Z0-9]+\z/, message: "パスワードは半角英数字混合の必要がある"}  do
+  with_options presence: true, format:{with: /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]{8,100}+\z/i, message: "パスワードは半角英数字混合で入力する必要がある"}  do
     validates :password
   end
-
 
   with_options presence: true do
     validates :nickname
