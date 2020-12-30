@@ -34,7 +34,7 @@ class ItemsController < ApplicationController
     if @item.update(item_params)
       render :show
     else
-    render :edit
+      render :edit
     end
   end
   

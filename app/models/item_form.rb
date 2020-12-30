@@ -16,6 +16,5 @@ class ItemForm
   def save 
     user_item = UserItem.create(item_id: item_id, user_id: user_id)
      Delivery.create(postcode: postcode, prefecture_id: prefecture_id, city: city, block: block, building: building, phone: phone, user_item_id: user_item.id)
-   
   end
 end

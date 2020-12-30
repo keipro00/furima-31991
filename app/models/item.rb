@@ -33,4 +33,3 @@ class Item < ApplicationRecord
   validates :price, format: { with: /\A[0-9]+\z/, message: '販売価格は、半角数値のみ保存可能' } 
   validates :price, inclusion: { in: 300..9999999, message: "販売価格は、300円〜9,999,999円の間である" }
 end
-
